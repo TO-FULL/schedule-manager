@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#4f46e5" />
+  <title>时砾 · 日程管理</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">⏳</div>
+        <div class="brand-text">
+          <strong>时砾</strong>
+          <small>日程管理工作台</small>
+        </div>
+      </div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-ico">📊</span><span>总览</span></button>
+        <button class="nav-item" data-view="calendar"><span class="nav-ico">📅</span><span>日历</span></button>
+        <button class="nav-item" data-view="tasks"><span class="nav-ico">✅</span><span>待办</span><span class="nav-badge" id="nav-task-badge">0</span></button>
+        <button class="nav-item" data-view="pomodoro"><span class="nav-ico">🍅</span><span>番茄钟</span></button>
+        <button class="nav-item" data-view="habits"><span class="nav-ico">🔥</span><span>习惯</span></button>
+        <button class="nav-item" data-view="notes"><span class="nav-ico">📝</span><span>便签</span></button>
+        <button class="nav-item" data-view="data"><span class="nav-ico">💾</span><span>数据</span></button>
+      </nav>
+      <div class="sidebar-foot">
+        <button class="theme-toggle" id="theme-toggle" title="切换深浅色">🌞 浅色</button>
+        <small>本地存储 · 隐私安全<br>数据仅保存在本机浏览器</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-btn" id="menu-btn" title="菜单">☰</button>
+          <span class="topbar-title" id="topbar-title">总览</span>
+        </div>
+        <div class="topbar-right">
+          <span class="topbar-date" id="topbar-date"></span>
+          <span class="topbar-clock" id="topbar-clock"></span>
+        </div>
+      </header>
+
+      <section id="view-dashboard" class="view active"></section>
+      <section id="view-calendar" class="view"></section>
+      <section id="view-tasks" class="view"></section>
+      <section id="view-pomodoro" class="view"></section>
+      <section id="view-habits" class="view"></section>
+      <section id="view-notes" class="view"></section>
+      <section id="view-data" class="view"></section>
+    </main>
+  </div>
+
+  <div id="modal-layer"></div>
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/calendar.js"></script>
+  <script src="assets/js/tasks.js"></script>
+  <script src="assets/js/pomodoro.js"></script>
+  <script src="assets/js/habits.js"></script>
+  <script src="assets/js/notes.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
