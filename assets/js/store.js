@@ -69,6 +69,9 @@
   function save() {
     try { localStorage.setItem(KEY, JSON.stringify(data)); }
     catch (e) { console.warn('保存失败', e); if (window.U) U.toast('⚠️ 保存失败，存储空间可能已满'); }
+    if (typeof window !== 'undefined' && window.__onDataChange) {
+      try { window.__onDataChange(); } catch (e) { console.warn('同步钩子失败', e); }
+    }
   }
 
   function exportData() { return JSON.stringify(data, null, 2); }

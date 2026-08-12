@@ -28,7 +28,7 @@
       </nav>
       <div class="sidebar-foot">
         <button class="theme-toggle" id="theme-toggle" title="切换深浅色">🌞 浅色</button>
-        <small>本地存储 · 隐私安全<br>数据仅保存在本机浏览器</small>
+        <small>登录后数据可云端多设备同步<br>未登录时仅保存在本机浏览器</small>
       </div>
     </aside>
 
@@ -39,6 +39,9 @@
           <span class="topbar-title" id="topbar-title">总览</span>
         </div>
         <div class="topbar-right">
+          <button class="sync-btn" id="sync-btn" title="云端同步">☁️ 同步</button>
+          <span class="sync-status" id="sync-status"></span>
+          <button class="sync-logout" id="sync-logout" hidden>退出</button>
           <span class="topbar-date" id="topbar-date"></span>
           <span class="topbar-clock" id="topbar-clock"></span>
         </div>
@@ -66,6 +69,7 @@
   <script src="assets/js/notes.js"></script>
   <script src="assets/js/dashboard.js"></script>
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/sync.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>

@@ -55,6 +55,7 @@
     Store.load();
     applyTheme(Store.get().settings.theme || 'light');
     PomodoroView.init();
+    if (window.Sync) Sync.init();
     startClock();
     refreshBadge();
 
