@@ -133,39 +133,47 @@
   }
 
   function openModal() {
-    const m = U.modal({ title: '☁️ 云端同步', wide: false });
-    m.body.innerHTML = `
-      <div class="sync-tabs">
-        <button class="sync-tab active" data-tab="login">登录</button>
-        <button class="sync-tab" data-tab="register">注册</button>
-      </div>
-      <form id="sync-form" class="sync-form">
-        <div class="field"><label>邮箱</label><input id="sync-email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
-        <div class="field"><label>密码</label><input id="sync-pass" type="password" placeholder="至少 6 位" autocomplete="current-password" required></div>
-        <p class="sync-hint">数据保存在你的 Upstash Redis，仅你本人可访问；未登录时数据仍只存在本机浏览器。</p>
-        <button type="submit" class="btn-primary" id="sync-submit">登录</button>
-      </form>`;
-    let tab = 'login';
-    const submit = m.body.querySelector('#sync-submit');
-    m.body.querySelectorAll('.sync-tab').forEach((b) => {
-      b.onclick = () => {
-        tab = b.dataset.tab; m.body.querySelectorAll('.sync-tab').forEach((x) => x.classList.toggle('active', x === b));
-        submit.textContent = tab === 'login' ? '登录' : '注册并同步'; m.body.querySelector('#sync-pass').autocomplete = tab === 'login' ? 'current-password' : 'new-password';
-      };
-    });
-    m.body.querySelector('#sync-form').onsubmit = async (e) => {
-      e.preventDefault();
-      const email = m.body.querySelector('#sync-email').value.trim();
-      const pass = m.body.querySelector('#sync-pass').value;
-      submit.disabled = true; submit.textContent = '处理中…';
-      try {
-        await loginOrRegister(tab, email, pass);
-        U.closeModal(m.id);
-      } catch (err) {
-        U.toast('⚠️ ' + err.message);
-        submit.disabled = false; submit.textContent = tab === 'login' ? '登录' : '注册并同步';
+    U.modal({
+      title: '☁️ 云端同步',
+      body: `
+        <div class="sync-tabs">
+          <button class="sync-tab active" data-tab="login">登录</button>
+          <button class="sync-tab" data-tab="register">注册</button>
+        </div>
+        <form id="sync-form" class="sync-form">
+          <div class="field"><label>邮箱</label><input id="sync-email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+          <div class="field"><label>密码</label><input id="sync-pass" type="password" placeholder="至少 6 位" autocomplete="current-password" required></div>
+          <p class="sync-hint">数据保存在你的 Upstash Redis，仅你本人可访问；未登录时数据仍只存在本机浏览器。</p>
+          <button type="submit" class="btn-primary" id="sync-submit">登录</button>
+        </form>`,
+      onMount: (m) => {
+        let tab = 'login';
+        const body = m.querySelector('.modal-body');
+        const submit = body.querySelector('#sync-submit');
+        body.querySelectorAll('.sync-tab').forEach((b) => {
+          b.onclick = () => {
+            tab = b.dataset.tab;
+            body.querySelectorAll('.sync-tab').forEach((x) => x.classList.toggle('active', x === b));
+            submit.textContent = tab === 'login' ? '登录' : '注册并同步';
+            body.querySelector('#sync-pass').autocomplete = tab === 'login' ? 'current-password' : 'new-password';
+          };
+        });
+        body.querySelector('#sync-form').onsubmit = async (e) => {
+          e.preventDefault();
+          const email = body.querySelector('#sync-email').value.trim();
+          const pass = body.querySelector('#sync-pass').value;
+          submit.disabled = true; submit.textContent = '处理中…';
+          try {
+            await loginOrRegister(tab, email, pass);
+            U.closeModal();
+          } catch (err) {
+            U.toast('⚠️ ' + err.message);
+            submit.disabled = false;
+            submit.textContent = tab === 'login' ? '登录' : '注册并同步';
+          }
+        };
       }
-    };
+    });
   }
 
   function bindHeader() {
